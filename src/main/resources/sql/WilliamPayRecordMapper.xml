@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="alipay.server.mapper.WilliamPayRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.william.pojo.WilliamPayRecord" >
+    <id column="pay_id" property="payId" jdbcType="CHAR" />
+    <result column="pay_channel_id" property="payChannelId" jdbcType="INTEGER" />
+    <result column="ref_id" property="refId" jdbcType="INTEGER" />
+    <result column="out_trade_id" property="outTradeId" jdbcType="VARCHAR" />
+    <result column="customer_id" property="customerId" jdbcType="CHAR" />
+    <result column="order_id" property="orderId" jdbcType="CHAR" />
+    <result column="ext_info" property="extInfo" jdbcType="VARCHAR" />
+    <result column="client_id" property="clientId" jdbcType="CHAR" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="pay_status" property="payStatus" jdbcType="TINYINT" />
+    <result column="pay_amount" property="payAmount" jdbcType="DECIMAL" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    william_pay_record.pay_id as pay_id, william_pay_record.pay_channel_id as pay_channel_id, 
+    william_pay_record.ref_id as ref_id, william_pay_record.out_trade_id as out_trade_id, 
+    william_pay_record.customer_id as customer_id, william_pay_record.order_id as order_id, 
+    william_pay_record.ext_info as ext_info, william_pay_record.client_id as client_id, 
+    william_pay_record.pay_time as pay_time, william_pay_record.pay_status as pay_status, 
+    william_pay_record.pay_amount as pay_amount, william_pay_record.create_time as create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.william.pojo.WilliamPayRecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from william_pay_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from william_pay_record
+    where william_pay_record.pay_id = #{payId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from william_pay_record
+    where pay_id = #{payId,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.william.pojo.WilliamPayRecordExample" >
+    delete from william_pay_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.william.pojo.WilliamPayRecord" >
+    insert into william_pay_record (pay_id, pay_channel_id, ref_id, 
+      out_trade_id, customer_id, order_id, 
+      ext_info, client_id, pay_time, 
+      pay_status, pay_amount, create_time
+      )
+    values (#{payId,jdbcType=CHAR}, #{payChannelId,jdbcType=INTEGER}, #{refId,jdbcType=INTEGER}, 
+      #{outTradeId,jdbcType=VARCHAR}, #{customerId,jdbcType=CHAR}, #{orderId,jdbcType=CHAR}, 
+      #{extInfo,jdbcType=VARCHAR}, #{clientId,jdbcType=CHAR}, #{payTime,jdbcType=TIMESTAMP}, 
+      #{payStatus,jdbcType=TINYINT}, #{payAmount,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.william.pojo.WilliamPayRecord" >
+    insert into william_pay_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="payId != null" >
+        pay_id,
+      </if>
+      <if test="payChannelId != null" >
+        pay_channel_id,
+      </if>
+      <if test="refId != null" >
+        ref_id,
+      </if>
+      <if test="outTradeId != null" >
+        out_trade_id,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="extInfo != null" >
+        ext_info,
+      </if>
+      <if test="clientId != null" >
+        client_id,
+      </if>
+      <if test="payTime != null" >
+        pay_time,
+      </if>
+      <if test="payStatus != null" >
+        pay_status,
+      </if>
+      <if test="payAmount != null" >
+        pay_amount,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="payId != null" >
+        #{payId,jdbcType=CHAR},
+      </if>
+      <if test="payChannelId != null" >
+        #{payChannelId,jdbcType=INTEGER},
+      </if>
+      <if test="refId != null" >
+        #{refId,jdbcType=INTEGER},
+      </if>
+      <if test="outTradeId != null" >
+        #{outTradeId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=CHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=CHAR},
+      </if>
+      <if test="extInfo != null" >
+        #{extInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="clientId != null" >
+        #{clientId,jdbcType=CHAR},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payStatus != null" >
+        #{payStatus,jdbcType=TINYINT},
+      </if>
+      <if test="payAmount != null" >
+        #{payAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.william.pojo.WilliamPayRecordExample" resultType="java.lang.Integer" >
+    select count(*) from william_pay_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update william_pay_record
+    <set >
+      <if test="record.payId != null" >
+        pay_id = #{record.payId,jdbcType=CHAR},
+      </if>
+      <if test="record.payChannelId != null" >
+        pay_channel_id = #{record.payChannelId,jdbcType=INTEGER},
+      </if>
+      <if test="record.refId != null" >
+        ref_id = #{record.refId,jdbcType=INTEGER},
+      </if>
+      <if test="record.outTradeId != null" >
+        out_trade_id = #{record.outTradeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerId != null" >
+        customer_id = #{record.customerId,jdbcType=CHAR},
+      </if>
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=CHAR},
+      </if>
+      <if test="record.extInfo != null" >
+        ext_info = #{record.extInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clientId != null" >
+        client_id = #{record.clientId,jdbcType=CHAR},
+      </if>
+      <if test="record.payTime != null" >
+        pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.payStatus != null" >
+        pay_status = #{record.payStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.payAmount != null" >
+        pay_amount = #{record.payAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update william_pay_record
+    set pay_id = #{record.payId,jdbcType=CHAR},
+      pay_channel_id = #{record.payChannelId,jdbcType=INTEGER},
+      ref_id = #{record.refId,jdbcType=INTEGER},
+      out_trade_id = #{record.outTradeId,jdbcType=VARCHAR},
+      customer_id = #{record.customerId,jdbcType=CHAR},
+      order_id = #{record.orderId,jdbcType=CHAR},
+      ext_info = #{record.extInfo,jdbcType=VARCHAR},
+      client_id = #{record.clientId,jdbcType=CHAR},
+      pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      pay_status = #{record.payStatus,jdbcType=TINYINT},
+      pay_amount = #{record.payAmount,jdbcType=DECIMAL},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.william.pojo.WilliamPayRecord" >
+    update william_pay_record
+    <set >
+      <if test="payChannelId != null" >
+        pay_channel_id = #{payChannelId,jdbcType=INTEGER},
+      </if>
+      <if test="refId != null" >
+        ref_id = #{refId,jdbcType=INTEGER},
+      </if>
+      <if test="outTradeId != null" >
+        out_trade_id = #{outTradeId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=CHAR},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=CHAR},
+      </if>
+      <if test="extInfo != null" >
+        ext_info = #{extInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="clientId != null" >
+        client_id = #{clientId,jdbcType=CHAR},
+      </if>
+      <if test="payTime != null" >
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payStatus != null" >
+        pay_status = #{payStatus,jdbcType=TINYINT},
+      </if>
+      <if test="payAmount != null" >
+        pay_amount = #{payAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where pay_id = #{payId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.william.pojo.WilliamPayRecord" >
+    update william_pay_record
+    set pay_channel_id = #{payChannelId,jdbcType=INTEGER},
+      ref_id = #{refId,jdbcType=INTEGER},
+      out_trade_id = #{outTradeId,jdbcType=VARCHAR},
+      customer_id = #{customerId,jdbcType=CHAR},
+      order_id = #{orderId,jdbcType=CHAR},
+      ext_info = #{extInfo,jdbcType=VARCHAR},
+      client_id = #{clientId,jdbcType=CHAR},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      pay_status = #{payStatus,jdbcType=TINYINT},
+      pay_amount = #{payAmount,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where pay_id = #{payId,jdbcType=CHAR}
+  </update>
+  <select id="selectPage" resultMap="BaseResultMap" parameterType="com.william.pojo.WilliamPayRecordExample" >
+    select 
+<if test="distinct" > 
+distinct 
+</if> 
+<include refid="Base_Column_List" /> 
+from william_pay_record
+<if test="_parameter != null" > 
+<include refid="Example_Where_Clause" /> 
+</if> 
+<if test="orderByClause != null" > 
+order by ${orderByClause} 
+</if> 
+limit #{pageSize} offset #{startPos} 
+
+  </select>
+</mapper>
